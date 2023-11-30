@@ -1,30 +1,19 @@
 public class Solution {
     public int RemoveDuplicates(int[] nums) {
-        List<int> iList = new List<int>();
-            
-        if (nums.Length > 0)
-        {
-            int cnt = 1;
-            int tmp = nums[0];
-            iList.Add(tmp);
-            for (var i = 1; i < nums.Length; i++)
-            {
-                if (tmp != nums[i])
-                {
-                    cnt++;
-                    iList.Add(nums[i]);
+        List<int> nList = new List<int>();
+        for(var i = 0; i < nums.Length; i++){
+            bool isThere = false;
+            for(var j = 0; j < nList.Count; j++){
+                if(nList[j] == nums[i]){
+                    isThere = true;
+                    break;
                 }
-                    
-                tmp = nums[i];
             }
-            for(var i = 0; i < iList.Count; i++)
-            {
-                nums[i] = iList[i];
-            }
-            return cnt;
-
+            if(!isThere)
+                nList.Add(nums[i]);
         }
-        else
-            return 0;
+        for(var i = 0; i < nList.Count; i++)
+            nums[i] = nList[i];
+        return nList.Count;
     }
 }
