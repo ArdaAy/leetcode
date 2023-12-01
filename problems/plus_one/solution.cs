@@ -1,34 +1,34 @@
 public class Solution {
     public int[] PlusOne(int[] digits) {
+        if(digits.Length == 0)
+            return new int[0];
         
-        if (digits.Length == 0)
-            return new int[] { 1 };
-
-        int[] arr = digits;
-        for (var i = digits.Length - 1; i >= 0; i--)
-        {
-            if (digits[i] + 1 == 10)
-            {
-
-                if (i==0)
-                {
-                    arr[i] = 0;
-                    int[] temp = new int[arr.Length + 1];
-                    temp[0] = 1;
-                    for (var j = 0; j < arr.Length; j++)
-                        temp[j + 1] = arr[j];
-                    return temp;
-                }
-                else
-                    arr[i] = 0;
+        List<int> iList = digits.Reverse().ToList();
+        //iList[0] = iList[0] + 1;
+        
+        var hand = 1;
+        for(var i = 0; i < iList.Count; i++){
+            iList[i] = hand + iList[i];
+            hand = 0;
+            if(iList[i] >= 10){
+                
+                hand = iList[i] / 10;
+                iList[i] = iList[i] % 10;
             }
             else
-            {
-                arr[i] = arr[i] + 1;
-                return arr;
-            }
-
+                break;
         }
+        if(hand > 0)
+            iList.Add(hand);
+        
+        int[] arr = new int[iList.Count];
+        
+        var j = 0;
+        for(var i = iList.Count - 1; i >= 0; i--){
+            arr[j] = iList[i];
+            j++;
+        }
+        
         return arr;
     }
 }
