@@ -5,13 +5,10 @@ public class Solution {
         else if (mat[0].Length == 1)
         {
             List<int> arr = new List<int>();
-            //var arr = new int[mat.Length * mat[0].Length];
             for(var i = 0; i < mat.Length; i++)
             {
                 for(var j = 0; j < mat[i].Length; j++)
-                {
                     arr.Add(mat[i][j]);
-                }
             }
             return arr.ToArray();
         }
@@ -32,28 +29,28 @@ public class Solution {
                 var i = iCur;
                 var j = jCur;
 
-                List<int> tmp = new List<int>();
-                // işlem yap
-                while (i >= 0 && j <= jMax)
-                {
-                    if (direction)
-                        arr.Add(mat[i][j]);
-                    else
+                if(!direction){
+                    List<int> tmp = new List<int>();
+                    while (i >= 0 && j <= jMax)
+                    {
                         tmp.Add(mat[i][j]);
-
-                    i--;
-                    j++;
-                }
-                if (!direction)
-                {
+                        i--;
+                        j++;
+                    }
                     tmp.Reverse();
                     foreach (var num in tmp)
                         arr.Add(num);
                 }
-
+                else{
+                    while (i >= 0 && j <= jMax)
+                    {
+                        arr.Add(mat[i][j]);
+                        i--;
+                        j++;
+                    }
+                }
                 direction = !direction;
 
-                // artırım yap
                 if (iCur < iMax)
                     iCur++;
                 else if (jCur < jMax)
